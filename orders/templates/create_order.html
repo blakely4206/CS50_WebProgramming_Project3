@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Create a Pizza
+{% endblock %}
+
+{% block body %}
+	<head>
+		<script>
+		
+			function checkbox_oncheck(){
+				var topping_checkboxes = document.getElementsByClassName("topping_box");
+				var t_count = document.getElementById("toppings_type_dropdown").value;
+				var t_total = 0;				
+				
+				for(i = 0; i < topping_checkboxes.length; i++){					
+					if(topping_checkboxes[i].checked == true){
+						t_total++;						
+					}
+				}	
+				
+				if(t_total == t_count){
+					for(i = 0; i < topping_checkboxes.length; i++){				
+						if(topping_checkboxes[i].checked == false){
+							topping_checkboxes[i].disabled = true;					
+						}
+					}	
+				}
+				else if(t_total < t_count){
+					for(i = 0; i < topping_checkboxes.length; i++){	
+						topping_checkboxes[i].disabled = false;											
+					}	
+				}
+			}
+			
+			function toppings_type_dropdown_handler(){
+				
+				var t_count = document.getElementById("toppings_type_dropdown").value;
+				
+				if(t_count == 0){
+					document.getElementById("div_toppings").style.display = "none";
+				}
+				else{
+					document.getElementById("div_toppings").style.display = "block";
+				}
+				
+				var topping_checkboxes = document.getElementsByClassName("topping_box");
+				for(i = 0; i < topping_checkboxes.length; i++){
+					topping_checkboxes[i].checked = false;
+						if(t_count == 0){
+							topping_checkboxes[i].disabled = true;
+						}
+						else{
+							topping_checkboxes[i].disabled = false;
+						}
+				}				
+			}
+		</script>
+		<a href="{% url 'index' %}">Menu</a>
+	</head>
+	<ul>
+	<div>
+	<h3>Create your order {{ first }} {{ last }}</h3>
+	<form action="" method="POST">
+	{% csrf_token %}
+		<h3>Style</h3>
+				<select id="pizza_style_dropdown" name="style">
+					{% for style in styles %}
+					<option id={{ style }}>{{ style }}</option>
+					{% endfor %}
+				</select>
+		<h3>Size</h3>
+				<select id="pizza_size_dropdown" name="size">
+					{% for size in sizes %}
+					<option id={{ size }}>{{ size }}</option>
+					{% endfor %}
+				</select>
+		<h3>Number of Toppings</h3>
+				<select id="toppings_type_dropdown" name="number_of_toppings" onchange="toppings_type_dropdown_handler()">
+					{% for type in types %}
+					<option id={{ type }} value="{{ type.value }}">{{ type }}</option>
+					{% endfor %}
+				</select>
+		</div>
+		<div id="div_toppings" style="display:none">
+		<h3>Toppings</h3>
+			<ul>
+			{% for topping in toppings %}
+			<li>
+					<input type="checkbox" name="toppings" value="{{ topping }}" onclick="checkbox_oncheck()" class="topping_box" id="{{ topping }}" disabled="true">
+						<label>{{ topping }}</label>                       
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+		<div>
+			<label>Quantity</label>
+			<input type="number" name="quantity" min="1" max="99">
+		</div>
+		<div>
+			<button>Add to Order</button>
+		</div>
+	</form>
+{% endblock %}

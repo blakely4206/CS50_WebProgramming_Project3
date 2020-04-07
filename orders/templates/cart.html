@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block body %}
+	<a href="{% url 'index' %}">Menu</a>
+	<a href="{% url 'create_order' %}">Continue Order</a>
+	<h3>Confirm Order for {{ first }} {{ last }}</h3>
+	<ul>
+		{% for pizza in orders %}
+			<li>{{ pizza.total }}</li>
+		{% endfor %}
+	</ul>
+	
+{% endblock %}

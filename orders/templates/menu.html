@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block body %}
+<a href="{% url 'create_order' %}">Start an Order</a>
+    <h2>Pizza</h2>
+	<ul>
+    {% for pizza in pizzas %}
+        <li>
+                {{ pizza }}
+        </li>
+    {% endfor %}
+	</ul>
+	
+	<h3>Toppings</h3>
+	<ul>
+    {% for topping in toppings %}
+        <li>
+                {{ topping }}
+        </li>
+    {% endfor %}
+	</ul>
+	
+{% endblock %}
