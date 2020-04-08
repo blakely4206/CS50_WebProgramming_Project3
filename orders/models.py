@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 class Customer(models.Model):
@@ -50,7 +51,13 @@ class Pizza(models.Model):
     quantity = models.IntegerField()
     
 class Order(models.Model):
+    STATUS_OPTIONS = (('A', 'Active'),('S', 'Submitted'),('C', 'Complete'))
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     contents = models.ManyToManyField(Pizza, blank=True)
-    total = models.DecimalField(decimal_places=2, max_digits=7)
-    time = models.DateTimeField()
+    total = models.DecimalField(decimal_places=2, max_digits=7, default=0.00)
+    time = models.DateTimeField(default=timezone.now())
+    status = models.CharField(max_length=1, choices=STATUS_OPTIONS)
+    
+    
+    

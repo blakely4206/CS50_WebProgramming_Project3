@@ -8,10 +8,37 @@
 	<a href="{% url 'index' %}">Menu</a>
 	<a href="{% url 'create_order' %}">Continue Order</a>
 	<h3>Confirm Order for {{ first }} {{ last }}</h3>
-	<ul>
-		{% for pizza in orders %}
-			<li>{{ pizza.total }}</li>
-		{% endfor %}
-	</ul>
-	
+	<h4>{{ address }} {{ state }} {{ zip_code }} </h4>
+	<form action="" method="POST">
+		{% csrf_token %}
+		<ul>
+			{% for p in order.contents.all %}
+			<li>
+				<input type="checkbox" 
+						name="lineitems"
+						class="lineitem_box" 
+						id="{{ p }}" 
+						checked="true"
+						value={{ p }}>	
+				<input type="number" 
+						value="{{ p.quantity }}" 
+						name="quantity" 
+						min="1"
+						max="99">
+						{{ p.pizza_type }}
+							{% for t in p.toppings.all %} 
+							{{ t.name }}
+							{% endfor %}						
+			</li>
+			{% endfor %}
+		<div>
+			Total: ${{ order.total }}
+		</div>
+		<div>
+			<input type="submit" name="Update" value="Update"/>
+			<input type="submit" name="Order" value="Order"/>
+			<input type="submit" name="Cancel" value="Cancel"/>
+		</div>
+		</ul>	
+	</form>
 {% endblock %}
