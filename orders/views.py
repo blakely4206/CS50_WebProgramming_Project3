@@ -18,6 +18,7 @@ def index(request):
 
 def create_order(request):
     if not request.user.is_authenticated:
+    
         return render(request, "login.html", {"message": None})
     else:                
         context = {
@@ -39,23 +40,31 @@ def create_order(request):
             if 'Cancel' in request.POST:
                 the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
                 the_order.delete()
-                return render(request, "menu.html", context)
-            elif 'Update' in request.POST:
-                current_items = request.POST.getlist('lineitems')
-                the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
-                the_order.delete()
                 
+                return render(request, "menu.html", context)
+            elif 'Update' in request.POST:                
+                current_items = request.POST.getlist('lineitems')
+                quantity_items = request.POST.getlist('quantity')
+                
+                the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
+                               
                 updated_order = Order(user=request.user, status='A')
                 updated_order.save()
                 
-                for item in current_items:
-                    print(item)
+                for i in range(0, len(quantity_items)):  
+                    pizza = the_order.contents.all()[i]
+                    pizza.quantity = quantity_items[i]
+                    pizza.save()
+             
+                the_order.total = total(Order.objects.filter(user=request.user).filter(status=ACTIVE).first().contents.all())
+                the_order.save()
                 
                 return render(request, "cart.html", context)
             elif 'Order' in request.POST:
                 the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
                 the_order.status = SUBMITTED
                 the_order.save()
+                
                 return render(request, "confirmation.html", context)
             else:
                 p_size = Pizza_Size.objects.get(size=request.POST.get("size"))
@@ -80,14 +89,14 @@ def create_order(request):
                     the_order = Order(user=request.user, status=ACTIVE, total=p_type.price)
                     the_order.save()
                     the_order.contents.add(p)
-                    print(the_order.total)
-                    the_order.total += p.pizza_type.price
+                    the_order.total = total(Order.objects.filter(user=request.user).filter(status=ACTIVE).first().contents.all())
                     the_order.save()                
                 else:
                     the_order.contents.add(p)
-                    the_order.total += p.pizza_type.price
+                    the_order.total = total(Order.objects.filter(user=request.user).filter(status=ACTIVE).first().contents.all())
                     the_order.save()
                 context['order'] = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
+                
                 return render(request, "cart.html", context)
         else:
             return render(request, "create_order.html", context)
@@ -95,23 +104,72 @@ def create_order(request):
 def cart(request):
     context = {
         "pizzas": Pizza_Type.objects.all(),
-        "orders": Order.objects.all(),
+        "order": Order.objects.filter(user=request.user).filter(status=ACTIVE).first(),
         "customer":request.user
     }
     
-    
-    return render(request, "menu.html", context)
+    if request.method == 'POST':
+            if 'Cancel' in request.POST:
+                the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
+                the_order.delete()
+                
+                return render(request, "menu.html", context)
+            elif 'Update' in request.POST:                
+                current_items = request.POST.getlist('lineitems')
+                quantity_items = request.POST.getlist('quantity')
+                
+                the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
+                               
+                updated_order = Order(user=request.user, status='A')
+                updated_order.save()
+                
+                for i in range(0, len(quantity_items)):  
+                    pizza = the_order.contents.all()[i]
+                    pizza.quantity = quantity_items[i]
+                    pizza.save()
+             
+                the_order.total = total(Order.objects.filter(user=request.user).filter(status=ACTIVE).first().contents.all())
+                the_order.save()
+                
+                return render(request, "cart.html", context)
+            elif 'Order' in request.POST:
+                the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
+                the_order.status = SUBMITTED
+                the_order.save()
+                
+                return render(request, "confirmation.html", context)
+    else:
+        return render(request, "cart.html", context)
   
 def login_view(request):
+
     username = request.POST["username"]
     password = request.POST["password"]
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
+        
         return HttpResponseRedirect(reverse("create_order"))
     else:
         return render(request, "login.html", {"message": "Invalid credentials."})
 
+def create_account(request):
+
+    return render(request, "create_order.html", context)
+
 def logout_view(request):
-    logout(request)
-    return render(request, "menu.html")
+    context = {
+            "pizzas": Pizza_Type.objects.all(),
+            "toppings" : Topping.objects.all()
+        }
+    logout(request, context)
+    
+    return render(request, "menu.html", context)
+    
+def total(the_order):
+    the_total = 0
+    
+    for pizza in the_order:
+        the_total += pizza.pizza_type.price * pizza.quantity
+        
+    return the_total

@@ -5,6 +5,21 @@
 {% endblock %}
 
 {% block body %}
+<head>
+	<script>
+			function checkbox_oncheck(){
+			
+				let quant = document.getElementsByName("quantity");
+				let lineitems = document.getElementsByName("lineitems");
+				
+				for(var i = 0; i < quant.length; i++){
+					if(lineitems[i].checked == false){
+						quant[i].value = "0";
+					}
+				}	
+			}
+	</script>
+</head>
 	<a href="{% url 'index' %}">Menu</a>
 	<a href="{% url 'create_order' %}">Continue Order</a>
 	<h3>Confirm Order for {{ first }} {{ last }}</h3>
@@ -17,13 +32,15 @@
 				<input type="checkbox" 
 						name="lineitems"
 						class="lineitem_box" 
+						onclick="checkbox_oncheck()"
 						id="{{ p }}" 
 						checked="true"
 						value={{ p }}>	
 				<input type="number" 
 						value="{{ p.quantity }}" 
 						name="quantity" 
-						min="1"
+						type="number"
+						min="0"
 						max="99">
 						{{ p.pizza_type }}
 							{% for t in p.toppings.all %} 

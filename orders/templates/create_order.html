@@ -57,6 +57,7 @@
 			}
 		</script>
 		<a href="{% url 'index' %}">Menu</a>
+		<a href="{% url 'logout' %}">Logout</a>
 	</head>
 	<ul>
 	<div>
@@ -76,7 +77,9 @@
 					{% endfor %}
 				</select>
 		<h3>Number of Toppings</h3>
-				<select id="toppings_type_dropdown" name="number_of_toppings" onchange="toppings_type_dropdown_handler()">
+				<select id="toppings_type_dropdown" 
+						name="number_of_toppings" 
+						onchange="toppings_type_dropdown_handler()">
 					{% for type in types %}
 					<option id={{ type }} value="{{ type.value }}">{{ type }}</option>
 					{% endfor %}
@@ -87,7 +90,13 @@
 			<ul>
 			{% for topping in toppings %}
 			<li>
-					<input type="checkbox" name="toppings" value="{{ topping }}" onclick="checkbox_oncheck()" class="topping_box" id="{{ topping }}" disabled="true">
+					<input type="checkbox" 
+							name="toppings" 
+							value="{{ topping }}" 
+							onclick="checkbox_oncheck()" 
+							class="topping_box" 
+							id="{{ topping }}" 
+							disabled="true">
 						<label>{{ topping }}</label>                       
 				</li>
 			{% endfor %}

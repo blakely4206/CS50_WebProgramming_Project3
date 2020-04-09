@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block body %}
+<head>
+	<script>
+		function password_change(){
+			let p1 = document.getElementById("password1");
+			let p2 = document.getElementById("password2");
+			
+			if(p1.value != "" && p2.value != ""){
+				if(p1.value == p2.value){
+					btnCreate.disabled = false;
+				}
+			else{
+				btnCreate.disabled = true;
+			}
+		}
+	</script>
+</head>
+	<h1>Create Account</h1>
+<form action="" method="POST">
+	<input type="text" name="first">	
+	<input type="text" name="last">	
+	<input type="text" name="username">	
+	<input type="text" name="address">	
+	<input type="text" name="city">	
+	<input type="text" name="state">	
+	<input type="text" name="zip">	
+	<input type="tel" name="phone">
+	<input type="password" id="password1" name="password1">		
+	<input type="password" id="password2" name="password2">
+	<button id="btnCreate" disabled="true">Create</button>
+</form>	
+{% endblock %}

@@ -5,5 +5,19 @@
 {% endblock %}
 
 {% block body %}
-
+<h1>We're working on your order</h1>
+<ul>
+			{% for p in order.contents.all %}
+			<li>
+						{{ p.quantity }} 
+						{{ p.pizza_type }}
+							{% for t in p.toppings.all %} 
+							{{ t.name }}
+							{% endfor %}						
+			</li>
+			{% endfor %}
+		<div>
+			Total: ${{ order.total }}
+		</div>
+		</ul>	
 {% endblock %}

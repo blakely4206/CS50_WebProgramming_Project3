@@ -7,7 +7,7 @@ class Customer(models.Model):
     phone = models.CharField(max_length=11)
     address = models.CharField(max_length=20)
     city = models.CharField(max_length=15)
-    state = models.CharField(max_length=2)
+    state = models.CharField(max_length =2,default="AR")
     zip_code = models.CharField(max_length=5)
 
 class Pizza_Size(models.Model):
@@ -59,5 +59,5 @@ class Order(models.Model):
     time = models.DateTimeField(default=timezone.now())
     status = models.CharField(max_length=1, choices=STATUS_OPTIONS)
     
-    
+
     
