@@ -42,7 +42,7 @@ class Pizza_Type(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=7)
     
     def __str__(self):
-        pizza_string = "{0} {1} {2} ${3}"
+        pizza_string = "{0}|{1}|{2}|${3}"
         return pizza_string.format(self.size, self.style, self.topping_type, self.price)
 
 class Pizza(models.Model):

@@ -6,15 +6,11 @@
 
 {% block body %}
 <a href="{% url 'create_order' %}">Start an Order</a>
-    <h2>Pizza</h2>
 	<ul>
-    {% for pizza in pizzas %}
-        <li>
-                {{ pizza }}
-        </li>
-    {% endfor %}
+		{% for type in types %}	
+			<li>{{ type }}</li>
+		{% endfor %}
 	</ul>
-	
 	<h3>Toppings</h3>
 	<ul>
     {% for topping in toppings %}

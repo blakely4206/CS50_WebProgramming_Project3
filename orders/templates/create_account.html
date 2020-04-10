@@ -7,32 +7,93 @@
 {% block body %}
 <head>
 	<script>
-		function password_change(){
+		function input_change(){
 			let p1 = document.getElementById("password1");
-			let p2 = document.getElementById("password2");
-			
-			if(p1.value != "" && p2.value != ""){
-				if(p1.value == p2.value){
-					btnCreate.disabled = false;
-				}
+			let p2 = document.getElementById("password2");			
+		
+			if(p1.value == p2.value){
+				btnCreate.disabled = false;
+			}
 			else{
 				btnCreate.disabled = true;
-			}
+			}			
 		}
 	</script>
 </head>
 	<h1>Create Account</h1>
-<form action="" method="POST">
-	<input type="text" name="first">	
-	<input type="text" name="last">	
-	<input type="text" name="username">	
-	<input type="text" name="address">	
-	<input type="text" name="city">	
-	<input type="text" name="state">	
-	<input type="text" name="zip">	
-	<input type="tel" name="phone">
-	<input type="password" id="password1" name="password1">		
-	<input type="password" id="password2" name="password2">
-	<button id="btnCreate" disabled="true">Create</button>
+<form action="{% url 'create_account' %}" method="POST">
+{% csrf_token %}
+	<ul>
+		<li>
+			<label>First Name</label>
+		</li>
+		<li>
+			<input type="text" name="first" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>Last Name</label>
+		</li>
+		<li>
+			<input type="text" name="last" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>Email</label>
+		</li>
+		<li>
+			<input type="text" name="username" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>Address</label>
+		</li>
+		<li>
+			<input type="text" name="address" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>City</label>
+		</li>
+		<li>
+			<input type="text" name="city" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>State</label>
+		</li>
+		<li>
+			<input type="text" name="state" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>Zip</label>
+		</li>
+		<li>
+			<input type="text" name="zip" onKeyUp="input_change()">	
+		</li>
+		<li>
+			<label>Phone</label>
+		</li>
+		<li>
+			<input type="tel" name="phone" onKeyUp="input_change()">
+		</li>
+		<li>
+			<label>Password</label>
+		</li>
+		<li>
+			<input type="password" id="password1" name="password1" onKeyUp="input_change()">		
+		</li>
+		<li>
+			<label>Re-enter Password</label>
+		</li>
+		<li>
+			<input type="password" id="password2" name="password2" onKeyUp="input_change()">
+		</li>
+		<li>
+			<label>Would you like to receive email offers and news?</label>		
+			<input type="checkbox" name="receive_emails" checked="true">
+		</li>
+		<li>
+			<input type="submit" id="btnCreate" value="Create" disabled="true"/>
+		</li>
+	</ul>
+	<div>
+        <label>{{ message }}</label>
+    </div>
 </form>	
 {% endblock %}

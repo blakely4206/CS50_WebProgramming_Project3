@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.urls import reverse
 from orders.models import Customer, Pizza_Size, Pizza_Style, Pizza_Topping_Type, Topping, Pizza_Type, Pizza, Order
 from datetime import datetime, timedelta, time
@@ -11,10 +12,52 @@ SUBMITTED = 'S'
 
 def index(request):
     context = {
-        "pizzas": Pizza_Type.objects.all(),
-        "toppings" : Topping.objects.all()
+        "types": Pizza_Type.objects.all()
+        
     }
     return render(request, "menu.html", context)
+    
+def create_account(request):
+    username = request.POST["username"]
+    
+    if User.objects.filter(username=username).exists():
+        return render(request, "create_account.html", {"message": "Username exists"})
+        
+    else:
+        password = request.POST["password1"]
+        first = request.POST["first"]
+        last = request.POST["last"]
+        email = request.POST["username"]
+        address = request.POST["address"]
+        city = request.POST["city"]
+        state = request.POST["state"]
+        zip_code = request.POST["zip"]
+        phone = request.POST["phone"]
+        offers = request.POST.get("receive_emails")
+           
+        user = User.objects.create_user(username=username, email=username, password=password)
+        user.save()    
+        customer = Customer(user=user, phone=phone, address=address, city=city, state=state, zip_code=zip_code)
+        customer.save()
+        user = authenticate(request, username=username, password=password)
+        login(request, user)
+    
+        return HttpResponseRedirect(reverse("create_order"))
+
+def login_view(request):
+    if 'Login' in request.POST:
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+        
+            return HttpResponseRedirect(reverse("create_order"))
+        else:
+            return render(request, "login.html", {"message": "Invalid credentials."})
+    else:
+        return render(request, "create_account.html")
+
 
 def create_order(request):
     if not request.user.is_authenticated:
@@ -141,28 +184,14 @@ def cart(request):
     else:
         return render(request, "cart.html", context)
   
-def login_view(request):
 
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        
-        return HttpResponseRedirect(reverse("create_order"))
-    else:
-        return render(request, "login.html", {"message": "Invalid credentials."})
-
-def create_account(request):
-
-    return render(request, "create_order.html", context)
 
 def logout_view(request):
     context = {
             "pizzas": Pizza_Type.objects.all(),
             "toppings" : Topping.objects.all()
         }
-    logout(request, context)
+    logout(request)
     
     return render(request, "menu.html", context)
     
