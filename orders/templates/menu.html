@@ -5,7 +5,19 @@
 {% endblock %}
 
 {% block body %}
-<a href="{% url 'create_order' %}">Start an Order</a>
+<head>
+	<script src="static/orders/js/menu.js"></script>
+	<div class="links">
+		<a href="{% url 'create_order' %}">
+			{% if current_order %}
+				Continue Order
+			{% else %}
+				Create an Order
+			{% endif %}
+		</a>
+	</div>
+</head>
+
 	<ul>
 		{% for type in types %}	
 			<li>{{ type }}</li>
@@ -14,9 +26,7 @@
 	<h3>Toppings</h3>
 	<ul>
     {% for topping in toppings %}
-        <li>
-                {{ topping }}
-        </li>
+        <li>{{ topping }}</li>
     {% endfor %}
 	</ul>
 	

@@ -1,3 +1,23 @@
 body {
     font-family: sans-serif;
 }
+
+div.heading {
+	border:1px solid black;
+}
+
+div.links {
+	border:1px solid black;
+}
+
+div.cart {
+	border:1px solid black;
+}
+
+table, th {
+  border: 1px solid black;
+}
+
+td {
+	border: 1px solid black;
+}

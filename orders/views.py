@@ -11,9 +11,12 @@ COMPLETE = 'C'
 SUBMITTED = 'S'
 
 def index(request):
+    current_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).exists()
+    
     context = {
-        "types": Pizza_Type.objects.all()
-        
+        "types": Pizza_Type.objects.all(),
+        "toppings": Topping.objects.all(),
+        "current_order": current_order
     }
     return render(request, "menu.html", context)
     
@@ -45,7 +48,9 @@ def create_account(request):
         return HttpResponseRedirect(reverse("create_order"))
 
 def login_view(request):
-    if 'Login' in request.POST:
+    if 'create_account' in request.POST:
+        return render(request, "create_account.html")
+    else:
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
@@ -54,16 +59,14 @@ def login_view(request):
         
             return HttpResponseRedirect(reverse("create_order"))
         else:
-            return render(request, "login.html", {"message": "Invalid credentials."})
-    else:
-        return render(request, "create_account.html")
-
+            return render(request, "login.html", {"message": "Invalid credentials."})        
 
 def create_order(request):
     if not request.user.is_authenticated:
     
         return render(request, "login.html", {"message": None})
-    else:                
+    else:         
+        order_pending = Order.objects.filter(user=request.user).filter(status=ACTIVE).exists()
         context = {
             "user": request.user,
             "address":request.user.customer.address,
@@ -76,6 +79,7 @@ def create_order(request):
             "toppings" : Topping.objects.all(),
             "styles": Pizza_Style.objects.all(),
             "types": Pizza_Topping_Type.objects.all(),
+            "order_pending": order_pending,
             "order": Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
         }
         
@@ -188,9 +192,9 @@ def cart(request):
 
 def logout_view(request):
     context = {
-            "pizzas": Pizza_Type.objects.all(),
-            "toppings" : Topping.objects.all()
-        }
+        "types": Pizza_Type.objects.all(),
+        "toppings": Topping.objects.all()
+    }
     logout(request)
     
     return render(request, "menu.html", context)

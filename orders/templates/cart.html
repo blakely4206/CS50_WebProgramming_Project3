@@ -6,19 +6,7 @@
 
 {% block body %}
 <head>
-	<script>
-			function checkbox_oncheck(){
-			
-				let quant = document.getElementsByName("quantity");
-				let lineitems = document.getElementsByName("lineitems");
-				
-				for(var i = 0; i < quant.length; i++){
-					if(lineitems[i].checked == false){
-						quant[i].value = "0";
-					}
-				}	
-			}
-	</script>
+	<script src="static/orders/js/cart.js"></script>
 </head>
 	<a href="{% url 'index' %}">Menu</a>
 	<a href="{% url 'create_order' %}">Continue Order</a>
@@ -42,10 +30,10 @@
 						type="number"
 						min="0"
 						max="99">
-						{{ p.pizza_type }}
-							{% for t in p.toppings.all %} 
-							{{ t.name }}
-							{% endfor %}						
+				{{ p.pizza_type }}
+				{% for t in p.toppings.all %} 
+					{{ t.name }}
+				{% endfor %}						
 			</li>
 			{% endfor %}
 		<div>
