@@ -10,7 +10,7 @@
 <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
     <input name="username" type="text"/>
-    <input name="password" type="password"/>
+    <input name="password" encrypt="sha1" type="password"/>
     <input type="submit" value="Login"/>
 	<input type="submit" name="create_account" value="Create Account"/>
 </form>

@@ -11,14 +11,26 @@ COMPLETE = 'C'
 SUBMITTED = 'S'
 
 def index(request):
-    current_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).exists()
+    if not request.user.is_authenticated:
+        context = {
+            "types": Pizza_Type.objects.all(),
+            "toppings": Topping.objects.all()
+        }
+       
+        return render(request, "menu.html", context)
     
-    context = {
-        "types": Pizza_Type.objects.all(),
-        "toppings": Topping.objects.all(),
-        "current_order": current_order
-    }
-    return render(request, "menu.html", context)
+    else:
+        current_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).exists()
+    
+        context = {
+            "types": Pizza_Type.objects.all(),
+            "toppings": Topping.objects.all(),
+            "current_order": current_order
+        }
+       
+        return render(request, "menu.html", context)
+ 
+    
     
 def create_account(request):
     username = request.POST["username"]
@@ -150,8 +162,9 @@ def create_order(request):
         
 def cart(request):
     context = {
-        "pizzas": Pizza_Type.objects.all(),
         "order": Order.objects.filter(user=request.user).filter(status=ACTIVE).first(),
+        "types": Pizza_Type.objects.all(),
+        "toppings": Topping.objects.all(),
         "customer":request.user
     }
     
@@ -159,7 +172,11 @@ def cart(request):
             if 'Cancel' in request.POST:
                 the_order = Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
                 the_order.delete()
-                
+                context = {
+                    "types": Pizza_Type.objects.all(),
+                    "toppings": Topping.objects.all()
+                }
+       
                 return render(request, "menu.html", context)
             elif 'Update' in request.POST:                
                 current_items = request.POST.getlist('lineitems')
