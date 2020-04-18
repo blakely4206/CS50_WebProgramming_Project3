@@ -11,7 +11,7 @@
     {% csrf_token %}
     <input name="username" type="text"/>
     <input name="password" encrypt="sha1" type="password"/>
-    <input type="submit" value="Login"/>
-	<input type="submit" name="create_account" value="Create Account"/>
+    <input type="submit"  class="submit_button"  value="Login"/>
+	<input type="submit"  class="submit_button"  name="create_account" value="Create Account"/>
 </form>
 {% endblock %}

@@ -6,94 +6,62 @@
 
 {% block body %}
 <head>
-	<script>
-		function input_change(){
-			let p1 = document.getElementById("password1");
-			let p2 = document.getElementById("password2");			
-		
-			if(p1.value == p2.value){
-				btnCreate.disabled = false;
-			}
-			else{
-				btnCreate.disabled = true;
-			}			
-		}
-	</script>
+	<script src="static/orders/js/create_account.js"></script>
 </head>
 	<h1>Create Account</h1>
+<div class="container">
 <form action="{% url 'create_account' %}" method="POST">
 {% csrf_token %}
-	<ul>
-		<li>
-			<label>First Name</label>
-		</li>
-		<li>
-			<input type="text" name="first" onKeyUp="input_change()">	
-		</li>
-		<li>
+			<label>First Name</label		
+			<input type="text" name="first" class="create_account_input" onKeyUp="input_change()">	
+			
 			<label>Last Name</label>
-		</li>
-		<li>
-			<input type="text" name="last" onKeyUp="input_change()">	
-		</li>
-		<li>
+			<input type="text" name="last" class="create_account_input" onKeyUp="input_change()">	
+			
 			<label>Email</label>
-		</li>
-		<li>
-			<input type="text" name="username" onKeyUp="input_change()">	
-		</li>
-		<li>
+			<input type="text" name="username" class="create_account_input" onKeyUp="input_change()">	
+		    
 			<label>Address</label>
-		</li>
-		<li>
-			<input type="text" name="address" onKeyUp="input_change()">	
-		</li>
-		<li>
+			<input type="text" name="address" class="create_account_input" onKeyUp="input_change()">	
+			
 			<label>City</label>
-		</li>
-		<li>
-			<input type="text" name="city" onKeyUp="input_change()">	
-		</li>
-		<li>
+			<input type="text" name="city" class="create_account_input" onKeyUp="input_change()">	
+			
 			<label>State</label>
-		</li>
-		<li>
-			<input type="text" name="state" onKeyUp="input_change()">	
-		</li>
-		<li>
-			<label>Zip</label>
-		</li>
-		<li>
-			<input type="text" name="zip" onKeyUp="input_change()">	
-		</li>
-		<li>
+			<input type="text" name="state" class="create_account_input" onKeyUp="input_change()">	
+			
+			<label>Zip</label>						
+			<input type="text" name="zip" class="create_account_input" onKeyUp="input_change()">	
+			
 			<label>Phone</label>
-		</li>
-		<li>
-			<input type="tel" name="phone" onKeyUp="input_change()">
-		</li>
-		<li>
+			<input type="tel" name="phone" class="create_account_input" onKeyUp="input_change()">
+			
 			<label>Password</label>
-		</li>
-		<li>
-			<input type="password" id="password1" name="password1" onKeyUp="input_change()">		
-		</li>
-		<li>
+			<input type="password" id="password1" name="password1" class="create_account_input"
+				pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+				title="Must contain at least one number and one uppercase and lowercase letter, 
+				and at least 8 or more characters" required>	
+			
 			<label>Re-enter Password</label>
-		</li>
-		<li>
-			<input type="password" id="password2" name="password2" onKeyUp="input_change()">
-		</li>
-		<li>
+			<input type="password" id="password2" class="create_account_input" onkeyup="onkeyup()" name="password2">
+			
 			<label>Would you like to receive email offers and news?</label>		
 			<input type="checkbox" name="receive_emails" checked="true">
-		</li>
-		<li>
-			<input type="submit" id="btnCreate" value="Create" disabled="true"/>
-		</li>
-	</ul>
-	<div>
-        <label>{{ message }}</label>
-    </div>
-</form>	
+			<input type="submit" id="submit" class="submit_button" value="Create" disabled="true"/>			
+		<div >
+			<label>{{ message }}</label>
+		</div>
+		<div id="pwd_message" class="pwd_message">
+			<h4>Password must contain the following:</h4>
+			<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+			<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+			<p id="number" class="invalid">A <b>number</b></p>
+			<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+			<p id="match" class="invalid">Passwords must <b>match</b></p>
+		</div>
+	</form>	
+</div>
+<script>
+		
+	</script>
 {% endblock %}

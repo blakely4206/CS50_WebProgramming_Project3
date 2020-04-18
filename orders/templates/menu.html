@@ -7,12 +7,17 @@
 {% block body %}
 <head>
 	<script src="static/orders/js/menu.js"></script>
-	<div class="links">
+	<div class="menu_nav">
 		<a href="{% url 'create_order' %}">
 			{% if current_order %}
 				Continue Order
 			{% else %}
 				Create an Order
+			{% endif %}
+		</a>		
+			{% if logged_in %}
+			<a href="{% url 'logout' %}">
+				Sign Out
 			{% endif %}
 		</a>
 	</div>

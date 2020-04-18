@@ -14,7 +14,8 @@ def index(request):
     if not request.user.is_authenticated:
         context = {
             "types": Pizza_Type.objects.all(),
-            "toppings": Topping.objects.all()
+            "toppings": Topping.objects.all(),
+            "logged_in": False
         }
        
         return render(request, "menu.html", context)
@@ -25,13 +26,12 @@ def index(request):
         context = {
             "types": Pizza_Type.objects.all(),
             "toppings": Topping.objects.all(),
-            "current_order": current_order
+            "current_order": current_order,
+            "logged_in": True
         }
        
         return render(request, "menu.html", context)
- 
-    
-    
+         
 def create_account(request):
     username = request.POST["username"]
     
@@ -92,7 +92,8 @@ def create_order(request):
             "styles": Pizza_Style.objects.all(),
             "types": Pizza_Topping_Type.objects.all(),
             "order_pending": order_pending,
-            "order": Order.objects.filter(user=request.user).filter(status=ACTIVE).first()
+            "order": Order.objects.filter(user=request.user).filter(status=ACTIVE).first(),
+            "logged_in": True
         }
         
         if request.method == 'POST':
@@ -174,7 +175,8 @@ def cart(request):
                 the_order.delete()
                 context = {
                     "types": Pizza_Type.objects.all(),
-                    "toppings": Topping.objects.all()
+                    "toppings": Topping.objects.all(),
+                    "logged_in": True
                 }
        
                 return render(request, "menu.html", context)
@@ -210,7 +212,8 @@ def cart(request):
 def logout_view(request):
     context = {
         "types": Pizza_Type.objects.all(),
-        "toppings": Topping.objects.all()
+        "toppings": Topping.objects.all(),
+        "logged_in": False
     }
     logout(request)
     

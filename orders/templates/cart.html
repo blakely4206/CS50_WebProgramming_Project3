@@ -8,8 +8,10 @@
 <head>
 	<script src="static/orders/js/cart.js"></script>
 </head>
-	<a href="{% url 'index' %}">Menu</a>
-	<a href="{% url 'create_order' %}">Continue Order</a>
+	<div class="menu_nav">
+		<a href="{% url 'index' %}">Menu</a>
+		<a href="{% url 'create_order' %}">Continue Order</a>
+	</div>
 	<h3>Confirm Order for {{ first }} {{ last }}</h3>
 	<h4>{{ address }} {{ state }} {{ zip_code }} </h4>
 	<form action="" method="POST">
@@ -40,9 +42,9 @@
 			Total: ${{ order.total }}
 		</div>
 		<div>
-			<input type="submit" name="Update" value="Update"/>
-			<input type="submit" name="Order" value="Order"/>
-			<input type="submit" name="Cancel" value="Cancel"/>
+			<input type="submit" class="submit_button" name="Update" value="Update"/>
+			<input type="submit" class="submit_button" name="Order" value="Order"/>
+			<input type="submit" class="submit_button" name="Cancel" value="Cancel"/>
 		</div>
 		</ul>	
 	</form>
