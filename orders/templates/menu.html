@@ -22,17 +22,17 @@
 		</a>
 	</div>
 </head>
-
-	<ul>
+<div class="div_blocks">
+	<ul class="ul_menu">
 		{% for type in types %}	
 			<li>{{ type }}</li>
 		{% endfor %}
 	</ul>
 	<h3>Toppings</h3>
-	<ul>
+	<ul class="ul_menu">
     {% for topping in toppings %}
         <li>{{ topping }}</li>
     {% endfor %}
 	</ul>
-	
+</div>
 {% endblock %}

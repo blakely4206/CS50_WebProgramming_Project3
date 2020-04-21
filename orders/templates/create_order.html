@@ -14,7 +14,7 @@
 		</div>
 	</head>
 	<ul>
-	<div>
+	<div class="div_createOrder">
 	<h3>Create your order {{ first }} {{ last }}</h3>
 	<form action="" method="POST">
 	{% csrf_token %}
@@ -39,7 +39,7 @@
 					{% endfor %}
 				</select>
 		</div>
-		<div id="div_toppings" style="display:none">
+		<div id="div_toppings" class="div_createOrder" style="display:none">
 		<h3>Toppings</h3>
 			<ul>
 			{% for topping in toppings %}
@@ -56,11 +56,9 @@
 			{% endfor %}
 			</ul>
 		</div>
-		<div>
+		<div class="div_createOrder">
 			<label>Quantity</label>
 			<input type="number" name="quantity" oninput="quantiy_onchange()" value="1" id="quantity" min="1" max="99">
-		</div>
-		<div>
 			<button name="submit" class="submit_button" id="submit">Add to Order</button>
 		</div>
 	</form>

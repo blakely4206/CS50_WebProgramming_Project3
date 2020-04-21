@@ -1,5 +1,29 @@
 body {
     font-family: sans-serif;
+	color: white;
+}
+
+.div_blocks {
+
+}
+
+.ul_menu {
+	background-color: black;
+	opacity: 0.8;
+}
+
+.div_createOrder {
+	background-color: black;
+	opacity: 0.8;
+}
+
+.cart {
+	background-color: black;
+	opacity: 0.8;
+}
+
+.img_main{
+	
 }
 
 .container {
