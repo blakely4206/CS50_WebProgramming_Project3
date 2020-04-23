@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
-from orders.models import Customer, Pizza_Size, Pizza_Style, Pizza_Topping_Type, Topping, Pizza_Type, Pizza, Order
+from orders.models import Customer, Pizza_Size, Pizza_Style, Pizza_Topping_Type, Topping, Pizza_Type, Pizza, Order, Pizza_Pic
 from datetime import datetime, timedelta, time
 
 ACTIVE = 'A'
@@ -25,6 +25,10 @@ def index(request):
     
         context = {
             "types": Pizza_Type.objects.all(),
+            "sizes": Pizza_Size.objects.all(),
+            "pics": Pizza_Pic.objects.all(),
+            "styles": Pizza_Style.objects.all(),
+            "topping_type": Pizza_Topping_Type.objects.all(),
             "toppings": Topping.objects.all(),
             "current_order": current_order,
             "logged_in": True

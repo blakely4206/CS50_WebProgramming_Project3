@@ -1,0 +1,30 @@
+.menu_nav {
+	background-color: #0B610B;
+	overflow: hidden;
+	border-radius: 16px;
+	opacity: 90%;
+}
+
+.div_menu {
+	background-color: black;
+	opacity: 0.85;
+}
+
+.table_menu {
+	
+}
+
+.button_toppings {
+	cursor: pointer;
+}
+
+.img_toppings:hover {
+	transform: scale(1.025);
+	transition: all 0.3s;
+}
+
+.img_toppings:hover {
+	transform: scale(1.05);
+	transition: all 0.3s;
+}
+

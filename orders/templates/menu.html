@@ -6,7 +6,9 @@
 
 {% block body %}
 <head>
-	<script src="static/orders/js/menu.js"></script>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'orders/styles/styles_menu.css' %}"/>
+	<script src="static/orders/js/menu.js"></script>	
 	<div class="menu_nav">
 		<a href="{% url 'create_order' %}">
 			{% if current_order %}
@@ -22,17 +24,40 @@
 		</a>
 	</div>
 </head>
-<div class="div_blocks">
+<div class="div_menu">
+	<table class="table_menu">
+		<tr>
+			<th>Our Styles</th>
+		</tr>
+		<tr>
+			{% for pic in pics %}
+				<td>
+					<img width="50%" class="img_toppings" src="{{ pic.pic.url }}">
+					{{ pic.style }}
+				</td>
+			{% endfor %}
+		</tr> 
+	</table>
+	<table class="table_menu">
+		<tr>
+			<th>Sizes</th>
+		</tr>
+		<tr>
+			{% for size in sizes %}
+				<td>{{ size }}</td>
+			{% endfor %}
+		</tr> 
+	</table>
+	<a id="toppings_button" name="toppings_button" class="button_toppings" onclick="toppings_button_onClick()">
+		<img src="static/orders/tomato.png" class="img_toppings" width="5%"></img>
+	</a>
+</div>
+<div id="modal_toppings" class="div_toppings">
+<span class="close" onclick="close_onClick()">&times;</span>
 	<ul class="ul_menu">
-		{% for type in types %}	
-			<li>{{ type }}</li>
-		{% endfor %}
-	</ul>
-	<h3>Toppings</h3>
-	<ul class="ul_menu">
-    {% for topping in toppings %}
-        <li>{{ topping }}</li>
-    {% endfor %}
+	{% for topping in toppings %}
+		<li>{{ topping }}</li>
+	{% endfor %}
 	</ul>
 </div>
 {% endblock %}

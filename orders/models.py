@@ -50,6 +50,10 @@ class Pizza(models.Model):
     toppings = models.ManyToManyField(Topping, blank=True)
     quantity = models.IntegerField()
     
+class Pizza_Pic(models.Model):
+    pic = models.ImageField(upload_to ='static/orders') 
+    style = models.ForeignKey(Pizza_Style, on_delete=models.CASCADE)
+    
 class Order(models.Model):
     STATUS_OPTIONS = (('A', 'Active'),('S', 'Submitted'),('C', 'Complete'))
     
