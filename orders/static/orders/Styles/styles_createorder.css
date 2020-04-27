@@ -1,0 +1,11 @@
+.menu_nav {
+	background-color: #0B610B;
+	overflow: hidden;
+	border-radius: 16px;
+	opacity: 90%;
+}
+
+.div_menu {
+	background-color: black;
+	opacity: 0.85;
+}

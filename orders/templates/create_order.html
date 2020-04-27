@@ -6,6 +6,8 @@
 
 {% block body %}
 	<head>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'orders/styles/styles_menu.css' %}"/>
 		<script src="static/orders/js/create_order.js"></script>
 		<div class="menu_nav">
 			<a href="{% url 'index' %}">Menu</a>			
@@ -14,7 +16,7 @@
 		</div>
 	</head>
 	<ul>
-	<div class="div_createOrder">
+	<div class="div_menu">
 	<h3>Create your order {{ first }} {{ last }}</h3>
 	<form action="" method="POST">
 	{% csrf_token %}
@@ -38,7 +40,7 @@
 					<option id={{ type }} value="{{ type.value }}">{{ type }}</option>
 					{% endfor %}
 				</select>
-		</div>
+	</div>
 		<div id="div_toppings" class="div_createOrder" style="display:none">
 		<h3>Toppings</h3>
 			<ul>

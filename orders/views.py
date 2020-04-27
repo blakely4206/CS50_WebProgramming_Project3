@@ -11,10 +11,14 @@ COMPLETE = 'C'
 SUBMITTED = 'S'
 
 def index(request):
+    return render(request, "main.html")
+     
+def menu(request): 
     if not request.user.is_authenticated:
         context = {
             "types": Pizza_Type.objects.all(),
             "toppings": Topping.objects.all(),
+            "pics": Pizza_Pic.objects.all(),
             "logged_in": False
         }
        
@@ -34,8 +38,8 @@ def index(request):
             "logged_in": True
         }
        
-        return render(request, "menu.html", context)
-         
+        return render(request, "menu.html", context)    
+        
 def create_account(request):
     username = request.POST["username"]
     

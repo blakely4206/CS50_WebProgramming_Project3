@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Menu
+    Penny's Est. 1987
 {% endblock %}
 
 {% block body %}
@@ -32,22 +32,13 @@
 		<tr>
 			{% for pic in pics %}
 				<td>
-					<img width="50%" class="img_toppings" src="{{ pic.pic.url }}">
+					<img width="50%" class="img_pizza" src="{{ pic.pic.url }}">
 					{{ pic.style }}
 				</td>
 			{% endfor %}
 		</tr> 
 	</table>
-	<table class="table_menu">
-		<tr>
-			<th>Sizes</th>
-		</tr>
-		<tr>
-			{% for size in sizes %}
-				<td>{{ size }}</td>
-			{% endfor %}
-		</tr> 
-	</table>
+
 	<a id="toppings_button" name="toppings_button" class="button_toppings" onclick="toppings_button_onClick()">
 		<img src="static/orders/tomato.png" class="img_toppings" width="5%"></img>
 	</a>

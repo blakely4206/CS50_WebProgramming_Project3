@@ -1,0 +1,58 @@
+
+{% block body %}
+<head>
+	{% load static %}  
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{% static 'orders/styles/main.css' %}"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  
+  <div class="carousel-inner">
+    <div class="item active" id="one">
+      <img src="static/orders/intro_pizza.jpg">
+	  <div class="carousel-caption">
+        <h1>Our Story</h1>
+		<h3>Est. 1987</h3>
+		<p class="content">Est aklmn keiondeiond kdnaeindf ndkn eibnraiund nadlknfdlk lkeindoan d
+		am4prompaoe opameopae4mn kdkd arlkmbrto ap lgmjspo apdmtofa fgokafpngmrapogpo
+		asdoe dkd eiek nhaklo op l,a rirn aprep erapeao poemp eopeo apeom opempeom aeo
+		asd e4i ndk aoin einblkd ioanklnads einoadrek ndfknadfol kneindknf indf ee</p>
+      </div>
+    </div>
+
+    <div class="item">
+	<a href="{% url 'menu' %}">
+      <img src="static/orders/intro_pizza2.jpg">
+	  <div class="carousel-caption">
+        <h1>Our Menu</h1>
+      </div>
+	  </a>
+    </div>
+
+    <div class="item">
+      <img src="static/orders/intro_pizza3.jpg">
+	  <div class="carousel-caption">
+        <h1>Start an Order</h1>
+      </div>
+    </div>
+  </div>
+
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+{% endblock %}
