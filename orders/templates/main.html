@@ -10,16 +10,16 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script></script>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="background-size:cover">
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
   </ol>
   
-  <div class="carousel-inner">
+  <div class="carousel-inner" style="width:100%; height:100%">
     <div class="item active" id="one">
-      <img src="static/orders/intro_pizza.jpg">
+      <img src="static/orders/intro_pizza.jpg" style="width:100%; height:100%">
 	  <div class="carousel-caption">
         <h1>Our Story</h1>
 		<h3>Est. 1987</h3>
@@ -35,7 +35,7 @@
 
     <div class="item">
 	<a href="{% url 'menu' %}">
-      <img src="static/orders/intro_pizza2.jpg">
+      <img src="static/orders/intro_pizza2.jpg" style="width:100%; height:100%">
 	  <div class="carousel-caption">
         <h1>Our Menu</h1>
       </div>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="item">
-      <img src="static/orders/intro_pizza3.jpg">
+      <img src="static/orders/intro_pizza3.jpg" style="width:100%; height:100%">
 	  <div class="carousel-caption">
         <h1>Start an Order</h1>
       </div>

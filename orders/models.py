@@ -18,6 +18,7 @@ class Pizza_Size(models.Model):
 
 class Pizza_Style(models.Model):
     style = models.CharField(max_length=20)
+    desc = models.CharField(max_length=100, null=True)
     
     def __str__(self):
         return self.style
@@ -31,7 +32,7 @@ class Pizza_Topping_Type(models.Model):
     
 class Topping(models.Model):
     name = models.CharField(max_length=20)
-    
+    pic = models.ImageField(null=True, upload_to ='static/orders/Toppings') 
     def __str__(self):
         return self.name
         

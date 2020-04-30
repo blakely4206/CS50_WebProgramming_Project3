@@ -25,29 +25,43 @@
 	</div>
 </head>
 <div class="div_menu">
-	<table class="table_menu">
+	<table class="table_menu" style="padding-left: 15%">
 		<tr>
-			<th>Our Styles</th>
+			<th style="padding-left: 30%">Our Styles</th>
 		</tr>
 		<tr>
 			{% for pic in pics %}
 				<td>
-					<img width="50%" class="img_pizza" src="{{ pic.pic.url }}">
-					{{ pic.style }}
+					<div id="{{ pic.style }}_modal" >
+						<span>{{ pic.style.desc }}</span>
+					</div>
+					<img width="50%" class="img_pizza" 
+						onmouseover='(function(){ 
+												var modal = document.getElementsByName("{{ pic.style }}_modal")[0];
+												modal.style.display = "block";
+												})();' 
+							src="{{ pic.pic.url }}">
 				</td>
 			{% endfor %}
 		</tr> 
 	</table>
 
-	<a id="toppings_button" name="toppings_button" class="button_toppings" onclick="toppings_button_onClick()">
+	<a id="toppings_button" style="padding-left: 45%" name="toppings_button" class="button_toppings" onclick="toppings_button_onClick()">
 		<img src="static/orders/tomato.png" class="img_toppings" width="5%"></img>
 	</a>
 </div>
 <div id="modal_toppings" class="div_toppings">
 <span class="close" onclick="close_onClick()">&times;</span>
-	<ul class="ul_menu">
+	<table class="toppiing_table">
 	{% for topping in toppings %}
-		<li>{{ topping }}</li>
+		<tr>
+			<td>
+				{{ topping }}
+			</td>
+			<td>
+				<img src="{{ topping.pic }}"/>
+			</td>
+		</tr>
 	{% endfor %}
 	</ul>
 </div>

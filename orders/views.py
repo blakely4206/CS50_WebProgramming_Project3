@@ -219,6 +219,7 @@ def cart(request):
 
 def logout_view(request):
     context = {
+        "pics": Pizza_Pic.objects.all(),
         "types": Pizza_Type.objects.all(),
         "toppings": Topping.objects.all(),
         "logged_in": False
